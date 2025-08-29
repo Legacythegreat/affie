@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Affie ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0c2461 0%, #1e3799 30%, #4a69bd 70%, #6a89cc 100%);
+            padding: 20px;
+            color: white;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated Background Elements */
+        .bg-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-heart {
+            position: absolute;
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.3);
+            animation: floatBg 8s linear infinite;
+        }
+
+        @keyframes floatBg {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .scene {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 500px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .card {
+            width: 100%;
+            height: auto;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25), 0 15px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .card-front {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            color: #2c3e50;
+            transform: rotateY(180deg);
+            display: none;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .card-back.visible {
+            display: flex;
+            opacity: 1;
+        }
+
+        .card-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        .photo-container {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 25px 0;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-container:hover {
+            transform: scale(1.05);
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-frame::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .countdown-box {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 25px 35px;
+            border-radius: 20px;
+            margin: 25px 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        #countdown {
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .message-container {
+            margin: 25px 0;
+        }
+
+        .message {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            margin-top: 30px;
+            background: linear-gradient(45deg, #1890c8, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .heart {
+            color: #ff6b6b;
+            animation: pulse 1.5s infinite;
+            display: inline-block;
+        }
+
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .heart-particle {
+            position: absolute;
+            font-size: 1.8rem;
+            opacity: 0;
+            color: #ff6b6b;
+            animation: floatHeart 4s ease-in-out infinite;
+        }
+
+        .envelope {
+            font-size: 4rem;
+            margin-bottom: 25px;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .romantic-border {
+            position: absolute;
+            width: 90%;
+            height: 90%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            pointer-events: none;
+        }
+
+        .instruction {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Hearts -->
+    <div class="bg-hearts" id="bgHearts"></div>
+
+    <div class="scene">
+        <div class="card">
+            <!-- Front of the Card (Countdown) -->
+            <div class="card-face card-front">
+                <div class="romantic-border"></div>
+                <div class="envelope">💌</div>
+                <h1 class="card-title">For My Dearest Affie</h1>
+                <p class="card-subtitle">A sweet Message awaits you at midnight</p>
+                
+                <div class="photo-container">
+                    <img src="https://i.imgur.com/szesEZk.jpeg" alt="My beautiful Affie">
+                </div>
+                
+                <div class="countdown-box">
+                    <p>Your special message arrives in:</p>
+                    <div id="countdown">-- : -- : --</div>
+                </div>
+                
+                <p>My heart is counting the moments with you ❤️</p>
+                <p class="instruction">Click to peek after midnight</p>
+            </div>
+
+            <!-- Back of the Card (Message - Hidden until countdown) -->
+            <div class="card-face card-back">
+                <div class="romantic-border" style="border-color: rgba(255, 107, 107, 0.3);"></div>
+                <h1 class="card-title">Happy Birthday, My Affie!</h1>
+                
+                <div class="photo-container">
+                    <img src="https://i.imgur.com/szesEZk.jpeg" alt="My beautiful Affie">
+                </div>
+
+                <div class="message-container">
+                    <p class="message">My darling Affie,</p>
+                    <p class="message">From the momentwe knew each other, I knew my heart had found its home. That first day together wasn't just a meeting—it was the beginning of everything.</p>
+                    <p class="message">You are the light that guides me, the comfort that soothes me, and the joy that fills my days. Thank you for being my constant, my rock, my everything.</p>
+                    <p class="message">On this special day, I want you to know how deeply loved you are. Every moment with you is a treasure I hold close to my heart.</p>
+                    <p class="message">Here's to celebrating you today and every day. May your birthday be as radiant and beautiful as you are.</p>
+                </div>
+
+                <p class="signature">Forever yours,<br>Your Affie<span class="heart">♥</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create background hearts
+        function createBackgroundHearts() {
+            const container = document.getElementById('bgHearts');
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'bg-heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                container.appendChild(heart);
+            }
+        }
+
+        // Set the target date: August 29, 2025, 6:00 PM EAT (which is 3:00 PM UTC)
+        const targetDate = new Date(Date.UTC(2025, 7, 29, 15, 0, 0));
+
+        function updateCountdown() {
+            const now = new Date();
+            const timeDifference = targetDate - now;
+
+            if (timeDifference <= 0) {
+                document.getElementById('countdown').innerHTML = "It's Time! 🎉";
+                document.querySelector('.card-back').classList.add('visible');
+                document.querySelector('.card').style.transform = 'rotateY(180deg)';
+                createHearts();
+                return;
+            }
+
+            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerHTML = 
+                `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        function createHearts() {
+            const heartsContainer = document.createElement('div');
+            heartsContainer.className = 'floating-hearts';
+            document.querySelector('.card-back').appendChild(heartsContainer);
+
+            for (let i = 0; i < 25; i++) {
+                createHeart(heartsContainer);
+            }
+        }
+
+        function createHeart(container) {
+            const heart = document.createElement('div');
+            heart.className = 'heart-particle';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 80 + 10 + '%';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            container.appendChild(heart);
+        }
+
+        // Initialize
+        createBackgroundHearts();
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        document.querySelector('.card').addEventListener('click', function() {
+            if (Date.now() >= targetDate) {
+                this.style.transform = this.style.transform === 'rotateY(180deg)' ? 
+                    'rotateY(0deg)' : 'rotateY(180deg)';
+            }
+        });
+    </script>
+</body>
+</html>
