@@ -415,7 +415,7 @@
         // Set target date for testing: Today at 7:19 PM EAT (4:19 PM UTC)
         const now = new Date();
         const targetDate = new Date();
-        targetDate.setUTCHours(09, 00, 0, 0); // 4:19 PM UTC = 7:19 PM EAT
+        targetDate.setUTCHours(00, 00, 0, 0); // 4:19 PM UTC = 7:19 PM EAT
         
         // If it's already past 7:19 PM, set for tomorrow
         if (now > targetDate) {
@@ -454,6 +454,7 @@
     </script>
 </body>
 </html>
+
 
 
 
