@@ -15,14 +15,19 @@
         body {
             font-family: 'Montserrat', sans-serif;
             min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .container {
+            min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 20px;
-            color: white;
-            overflow: hidden;
-            position: relative;
         }
 
         /* Glassmorphic Container */
@@ -42,6 +47,7 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             position: relative;
             overflow: hidden;
+            margin: 20px 0;
         }
 
         .glass-container::before {
@@ -148,17 +154,33 @@
             opacity: 0.7;
         }
 
-        /* Message Section (Initially Hidden) */
-        .message-section {
+        /* Message Page Styles */
+        .message-page {
             display: none;
-            opacity: 0;
-            transition: opacity 1.5s ease;
-            margin-top: 30px;
+            min-height: 100vh;
+            padding: 40px 20px;
+            width: 100%;
         }
 
-        .message-section.visible {
+        .message-page.visible {
             display: block;
-            opacity: 1;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .message-content {
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .photo-container {
@@ -202,6 +224,7 @@
             font-family: 'Dancing Script', cursive;
             font-size: 2rem;
             margin-top: 25px;
+            text-align: center;
             background: linear-gradient(45deg, #ffd700, #ff6b6b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -210,7 +233,7 @@
 
         /* Floating Elements */
         .floating-hearts {
-            position: absolute;
+            position: fixed;
             width: 100%;
             height: 100%;
             pointer-events: none;
@@ -246,6 +269,7 @@
             .glass-container {
                 padding: 30px 20px;
                 border-radius: 25px;
+                margin: 10px;
             }
             
             .title {
@@ -269,6 +293,46 @@
                 width: 120px;
                 height: 120px;
             }
+            
+            .message-content {
+                padding: 20px;
+                margin: 0 10px;
+            }
+            
+            .message {
+                padding: 20px;
+            }
+        }
+
+        @media (max-height: 700px) {
+            .container {
+                padding: 40px 20px;
+            }
+            
+            .glass-container {
+                margin: 10px 0;
+            }
+        }
+
+        /* Scrollable content for smaller screens */
+        .scroll-container {
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .scroll-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .scroll-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -276,41 +340,58 @@
     <!-- Floating Background Elements -->
     <div class="floating-hearts" id="floatingHearts"></div>
 
-    <div class="glass-container">
-        <!-- Countdown Section -->
-        <div class="neumorphic-circle">
-            <div class="heart-icon">💖</div>
-        </div>
-        
-        <h1 class="title">For My Affie</h1>
-        <p class="subtitle">A special surprise awaits at midnight ✨</p>
-        
-        <div class="countdown">
-            <div class="countdown-label">Your message arrives in:</div>
-            <div id="countdown-timer">-- : -- : --</div>
-            <div class="time-units">
-                <span>Days</span>
-                <span>Hours</span>
-                <span>Minutes</span>
-                <span>Seconds</span>
+    <!-- Countdown Page -->
+    <div class="container" id="countdownPage">
+        <div class="glass-container">
+            <div class="neumorphic-circle">
+                <div class="heart-icon">💖</div>
             </div>
-        </div>
+            
+            <h1 class="title">For My Affie</h1>
+            <p class="subtitle">A special surprise awaits at 7:19 PM ✨</p>
+            
+            <div class="countdown">
+                <div class="countdown-label">Your message arrives in:</div>
+                <div id="countdown-timer">-- : -- : --</div>
+                <div class="time-units">
+                    <span>Days</span>
+                    <span>Hours</span>
+                    <span>Minutes</span>
+                    <span>Seconds</span>
+                </div>
+            </div>
 
-        <!-- Message Section (Revealed after countdown) -->
-        <div class="message-section" id="messageSection">
-            <div class="photo-container">
-                <img src="https://i.imgur.com/szesEZk.jpeg" alt="My beautiful Affie">
+            <p class="subtitle">⌛ Waiting for the magical moment...</p>
+        </div>
+    </div>
+
+    <!-- Message Page (Hidden until countdown) -->
+    <div class="message-page" id="messagePage">
+        <div class="scroll-container">
+            <div class="message-content">
+                <h1 class="title">Happy Birthday, My Love! 🎉</h1>
+                
+                <div class="photo-container">
+                    <img src="https://i.imgur.com/szesEZk.jpeg" alt="My beautiful Affie">
+                </div>
+                
+                <div class="message">
+                    <p>My dearest Affie 💖,</p>
+                    <p>From that magical day we met ✨, my heart knew it found its home 🏡. Every moment with you feels like a beautiful dream 🌙.</p>
+                    <p>You're my sunshine ☀️, my comfort 🫂, and my greatest adventure 🚀. Thank you for being my everything 🌈.</p>
+                    <p>Today, I celebrate you 🎉 - the most amazing person I know! May your birthday be filled with joy 😊, laughter 😂, and all the love you deserve 💝.</p>
+                    <p>You mean the world to me 🌍💫</p>
+                    <p>Every day with you is a blessing 🙏, and I cherish every single moment we share 💞.</p>
+                    <p>You make my heart skip a beat 💓 with your beautiful smile and kind soul ✨.</p>
+                    <p>Here's to many more beautiful memories together 🥂</p>
+                </div>
+                
+                <p class="signature">Forever yours 💞<br>Your love 💕</p>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <div class="heart-icon">💝</div>
+                </div>
             </div>
-            
-            <div class="message">
-                <p>My dearest Affie 💖,</p>
-                <p>From that magical day we met ✨, my heart knew it found its home 🏡. Every moment with you feels like a beautiful dream 🌙.</p>
-                <p>You're my sunshine ☀️, my comfort 🫂, and my greatest adventure 🚀. Thank you for being my everything 🌈.</p>
-                <p>Today, I celebrate you 🎉 - the most amazing person I know! May your birthday be filled with joy 😊, laughter 😂, and all the love you deserve 💝.</p>
-                <p>You mean the world to me 🌍💫</p>
-            </div>
-            
-            <p class="signature">Forever yours 💞<br>Your love 💕</p>
         </div>
     </div>
 
@@ -331,8 +412,15 @@
             }
         }
 
-        // Set target date: August 29, 2025, 7:10 PM EAT (4:10 PM UTC)
-        const targetDate = new Date(Date.UTC(2025, 7, 29, 16, 10, 0));
+        // Set target date for testing: Today at 7:19 PM EAT (4:19 PM UTC)
+        const now = new Date();
+        const targetDate = new Date();
+        targetDate.setUTCHours(16, 25, 0, 0); // 4:19 PM UTC = 7:19 PM EAT
+        
+        // If it's already past 7:19 PM, set for tomorrow
+        if (now > targetDate) {
+            targetDate.setUTCDate(targetDate.getUTCDate() + 1);
+        }
 
         function updateCountdown() {
             const now = new Date();
@@ -340,7 +428,10 @@
 
             if (timeDifference <= 0) {
                 document.getElementById('countdown-timer').innerHTML = "00:00:00:00";
-                document.getElementById('messageSection').classList.add('visible');
+                // Switch to message page
+                document.getElementById('countdownPage').style.display = 'none';
+                document.getElementById('messagePage').classList.add('visible');
+                document.body.style.overflow = 'auto'; // Enable scrolling
                 return;
             }
 
@@ -357,6 +448,9 @@
         createFloatingHearts();
         setInterval(updateCountdown, 1000);
         updateCountdown();
+
+        // Prevent scrolling on countdown page
+        document.body.style.overflow = 'hidden';
     </script>
 </body>
 </html>
