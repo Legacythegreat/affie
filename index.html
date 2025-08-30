@@ -18,17 +18,25 @@
             min-height: 100vh;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
             touch-action: manipulation;
+        }
+
+        .scroll-container {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .container {
             text-align: center;
-            padding: 20px;
             width: 100%;
             max-width: 500px;
             z-index: 10;
@@ -142,10 +150,9 @@
         /* Message Page Styles */
         .message-page {
             display: none;
-            min-height: 100vh;
-            padding: 30px 15px;
             width: 100%;
             animation: fadeIn 1s ease-in;
+            flex: 1;
             overflow-y: auto;
         }
 
@@ -256,6 +263,10 @@
 
         /* Mobile-specific adjustments */
         @media (max-width: 480px) {
+            .scroll-container {
+                padding: 15px;
+            }
+            
             .title {
                 font-size: 2.3rem;
             }
@@ -282,6 +293,7 @@
             
             .message-content {
                 padding: 20px 15px;
+                margin: 15px;
             }
             
             .photo-container {
@@ -354,37 +366,41 @@
     </div>
 
     <!-- Balloon Popping Game -->
-    <div class="container" id="gamePage">
-        <h1 class="title">For My Affie</h1>
-        <p class="instructions">Pop the balloons in order to reveal your surprise! 🎈</p>
-        <div class="counter">Next balloon: <span id="count">1</span>/20</div>
-        
-        <div class="balloon-container" id="balloonContainer">
-            <!-- Balloons will be generated here -->
+    <div class="scroll-container" id="gamePage">
+        <div class="container">
+            <h1 class="title">For My Affie</h1>
+            <p class="instructions">Pop the balloons in order to reveal your surprise! 🎈</p>
+            <div class="counter">Next balloon: <span id="count">1</span>/20</div>
+            
+            <div class="balloon-container" id="balloonContainer">
+                <!-- Balloons will be generated here -->
+            </div>
         </div>
     </div>
 
     <!-- Message Page (Hidden until all balloons are popped) -->
     <div class="message-page" id="messagePage">
-        <div class="message-content">
-            <h1 class="title">Happy Birthday, My Love! 🎉</h1>
-            
-            <div class="photo-container">
-                <img src="https://i.imgur.com/szesEZk.jpeg" alt="My beautiful Affie">
+        <div class="scroll-container">
+            <div class="message-content">
+                <h1 class="title">Happy Birthday, My Love! 🎉</h1>
+                
+                <div class="photo-container">
+                    <img src="https://i.imgur.com/szesEZk.jpeg" alt="My beautiful Affie">
+                </div>
+                
+                <div class="message">
+                    <p>My dearest Affie 💖,</p>
+                    <p>From that magical day we met ✨, my heart knew it found its home 🏡. Every moment with you feels like a beautiful dream 🌙.</p>
+                    <p>You're my sunshine ☀️, my comfort 🫂, and my greatest adventure 🚀. Thank you for being my everything 🌈.</p>
+                    <p>Today, I celebrate you 🎉 - the most amazing person I know! May your birthday be filled with joy 😊, laughter 😂, and all the love you deserve 💝.</p>
+                    <p>You mean the world to me 🌍💫</p>
+                    <p>Every day with you is a blessing 🙏, and I cherish every single moment we share 💞.</p>
+                    <p>You make my heart skip a beat 💓 with your beautiful smile and kind soul ✨.</p>
+                    <p>Here's to many more beautiful memories together 🥂</p>
+                </div>
+                
+                <p class="signature">Forever yours 💞<br>Your love 💕</p>
             </div>
-            
-            <div class="message">
-                <p>My dearest Affie 💖,</p>
-                <p>From that magical day we met ✨, my heart knew it found its home 🏡. Every moment with you feels like a beautiful dream 🌙.</p>
-                <p>You're my sunshine ☀️, my comfort 🫂, and my greatest adventure 🚀. Thank you for being my everything 🌈.</p>
-                <p>Today, I celebrate you 🎉 - the most amazing person I know! May your birthday be filled with joy 😊, laughter 😂, and all the love you deserve 💝.</p>
-                <p>You mean the world to me 🌍💫</p>
-                <p>Every day with you is a blessing 🙏, and I cherish every single moment we share 💞.</p>
-                <p>You make my heart skip a beat 💓 with your beautiful smile and kind soul ✨.</p>
-                <p>Here's to many more beautiful memories together 🥂</p>
-            </div>
-            
-            <p class="signature">Forever yours 💞<br>Your love 💕</p>
         </div>
     </div>
 
